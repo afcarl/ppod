@@ -1,0 +1,22 @@
+! njorak, not-quite-dvorak. Version 1.2
+! By Pontus Stenetorp
+! Derived from us dvorak, accesses Swedish characters through
+! altgr or similar combos. Also swaps caps and esc.
+! Apply it to an ordinary dvorak keymap using xmodmap.
+! TypeMatrix version
+! still dedicated to spatrik
+
+! Set up Swedish special characters
+keycode 43 = d D aring
+keycode 44 = h H adiaeresis
+keycode 45 = t T odiaeresis
+
+! Start button on EZ-reach 2030
+keycode 115 = Mode_switch
+
+remove Lock = Caps_Lock
+remove Control = Escape
+keycode 9 = Escape
+keycode 133 = Escape
+add Lock = Caps_Lock
+add Control = Escape

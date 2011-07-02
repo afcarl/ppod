@@ -1,0 +1,23 @@
+! njorak, not-quite-dvorak. Version 1.2
+! By Pontus Stenetorp
+! Derived from us dvorak, accesses Swedish characters through
+! altgr or similar combos. Also swaps caps and esc.
+! Apply it to an ordinary dvorak keymap using xmodmap.
+! Dell Latitude E6400 version
+! still dedicated to spatrik
+
+! Set up Swedish special characters
+keycode 43 = d D aring
+keycode 44 = h H adiaeresis
+keycode 45 = t T odiaeresis
+
+! Windows key on a Dell Latitude E6400
+keycode 133 = Mode_switch
+
+! Swap escape and caps lock
+remove Lock = Caps_Lock
+remove Control = Escape
+keycode 66 = Escape
+keycode 9 = Caps_Lock
+add Lock = Caps_Lock
+add Control = Escape
