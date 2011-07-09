@@ -1,0 +1,38 @@
+--- morph.cpp.old	2010-11-27 14:57:11.000000000 +0900
++++ morph.cpp	2010-11-27 15:38:41.000000000 +0900
+@@ -17,8 +17,10 @@
+   set<string> verbdic;
+   set<string> adjdic;
+   MorphDic() {}
+-  void Init() {
+-    cerr << "loading morphdic...";
++  void Init(bool quiet) {
++    if (!quiet) {
++      cerr << "loading morphdic...";
++    }
+     LoadEx("./morphdic/noun.exc", nounex);
+     LoadEx("./morphdic/verb.exc", verbex);
+     LoadEx("./morphdic/adj.exc", adjex);
+@@ -26,7 +28,9 @@
+     LoadIdx("./morphdic/noun.dic", noundic);
+     LoadIdx("./morphdic/verb.dic", verbdic);
+     LoadIdx("./morphdic/adj.dic", adjdic);
+-    cerr << "done." << endl;
++    if (!quiet) {
++      cerr << "done." << endl;
++    }
+   }
+   void LoadEx(const string & filename, map<string, string> & exmap) {
+     ifstream ifile(filename.c_str());
+@@ -191,9 +195,9 @@
+ }
+ 
+ 
+-void init_morphdic()
++void init_morphdic(bool quiet)
+ {
+-  morphdic.Init();
++  morphdic.Init(quiet);
+ }
+ 
+ string base_form(const string & s, const string & pos)
