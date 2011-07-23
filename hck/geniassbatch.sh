@@ -18,6 +18,7 @@
 # Adjust these according to your environment
 GENIA_SS_DIR=~/git/geniass/
 SUPPORTING_DIR=~/git/bionlp_st_2011_supporting/
+# We use the post-processing script to conform with BioNLP ST 2011
 GENIA_SS_POSTPROC=${SUPPORTING_DIR}/tools/geniass-postproc.pl
 
 # Suffix to give the sentence splitted version of the files
