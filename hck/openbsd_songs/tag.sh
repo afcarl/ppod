@@ -14,7 +14,7 @@ TAG_LIST=tag.list
 for ogg_file in `ls *.ogg`
 do
     title=`grep "^${ogg_file}" ${TAG_LIST} | cut -f 2`
-    if [ -z ${title} ]
+    if [ -z "${title}" ]
     then
         echo "WARNING: no entry in ${TAG_LIST} for ${ogg_file}, skipping" 1>&2
         continue
