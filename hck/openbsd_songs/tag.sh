@@ -21,5 +21,5 @@ do
     fi
     lltag --yes --clear ${ogg_file} > /dev/null
     lltag --yes --ARTIST 'OpenBSD' --ALBUM 'OpenBSD' --TITLE "${title}" \
-        ${ogg_file} > /dev/null
+        "${ogg_file}" > /dev/null
 done

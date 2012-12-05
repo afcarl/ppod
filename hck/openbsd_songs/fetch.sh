@@ -9,6 +9,6 @@
 
 OPENBSD_SONGS=http://www.openbsd.org/songs/
 
-wget -r --no-parents --no-directories --accept ogg ${OPENBSD_SONGS}
+wget -r --no-parent --no-directories --accept ogg ${OPENBSD_SONGS}
 # Clean-up
 rm -f index.html robots.txt
