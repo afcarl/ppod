@@ -21,7 +21,7 @@ OUTPUT_DIR=${1}
 shift # Move the output directory out of the way for the other arguments
 
 if [ ! -d "${OUTPUT_DIR}" ]; then
-    echo 'ERROR: First argument not a directory, exiting'
+    echo 'ERROR: First argument not a directory, exiting' 1>&2
     exit 1
 fi
 
