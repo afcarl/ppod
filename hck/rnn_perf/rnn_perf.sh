@@ -6,11 +6,11 @@
 # Version:  2014-03-05
 
 CC=gcc
-CFLAGS='-O2 -Wall -Wextra -std=gnu11'
-echo 'C:' `${CC} ${CFLAGS} -o rnn_perf rnn_perf.c -lm && ./rnn_perf \
+CFLAGS='-O2 -Wall -Wextra -std=gnu99'
+echo 'C:' `${CC} ${CFLAGS} -o rnn_perf rnn_perf.c -lm -lrt && ./rnn_perf \
     && rm -f ./rnn_perf`
 echo 'C (BLAS):' `${CC} ${CFLAGS} -D USE_BLAS -o rnn_perf rnn_perf.c \
-    -lm -lblas && ./rnn_perf && rm -f ./rnn_perf`
+    -lm -lrt -lblas && ./rnn_perf && rm -f ./rnn_perf`
 # TODO: Java?
 echo 'Julia:' `./rnn_perf.jl`
 # Matlab/Octave are "special", so work around it.
