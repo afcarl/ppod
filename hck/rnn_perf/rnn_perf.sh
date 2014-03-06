@@ -11,12 +11,24 @@ echo 'C:' `${CC} ${CFLAGS} -o rnn_perf rnn_perf.c -lm && ./rnn_perf \
     && rm -f ./rnn_perf`
 echo 'C (BLAS):' `${CC} ${CFLAGS} -D USE_BLAS -o rnn_perf rnn_perf.c \
     -lm -lblas && ./rnn_perf && rm -f ./rnn_perf`
+
 # TODO: Java?
+
 echo 'Julia:' `./rnn_perf.jl`
+
 # Matlab/Octave are "special", so work around it.
 echo 'Matlab:' `matlab -r rnn_perf -nodisplay | grep '^Elapsed' \
     | cut -d ' ' -f 4`
 echo 'Octave:' `octave rnn_perf.m | grep '^Elapsed' | cut -d ' ' -f 4`
+
 echo 'Python 2.x:' `python2 rnn_perf.py`
 echo 'Python 3.x:' `./rnn_perf.py`
+
+CY_SETUP='setup.py build_ext --inplace'
+echo 'Cython 2.x' `python2 ${CY_SETUP} > /dev/null && \
+    python2 -c 'import rnn_perf'`
+echo 'Cython 3.x' `python3 ${CY_SETUP} > /dev/null && \
+    python3 -c 'import rnn_perf'`
+rm -rf build && find -name 'rnn_perf*.so'  | xargs -r rm
+
 # TODO: Scala?

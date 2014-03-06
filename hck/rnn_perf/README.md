@@ -13,6 +13,8 @@ Language    | Timing (lower is better)
 ----------- | ------------------------
 C           | 1.59
 C (BLAS)    | 6.00
+Cython 2.x  | 8.75
+Cython 3.x  | 8.83
 Julia       | 17.85
 Matlab      | 17.04
 Octave      | 26.95
