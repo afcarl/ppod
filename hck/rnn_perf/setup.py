@@ -6,7 +6,7 @@ from distutils.core import Extension
 from distutils.core import setup
 
 extensions = [
-        Extension('rnn_perf', ['rnn_perf.pyx', ],
+        Extension('_rnn_perf', ['_rnn_perf.pyx', ],
             libraries=[
                 'blas',
                 ],
