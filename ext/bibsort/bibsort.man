@@ -1,0 +1,291 @@
+.\" ====================================================================
+.\"  @Troff-man-file{
+.\"     author          = "Nelson H. F. Beebe",
+.\"     version         = "0.00",
+.\"     date            = "13 October 1992",
+.\"     time            = "19:32:55 MDT",
+.\"     filename        = "bibsort.man",
+.\"     address         = "Center for Scientific Computing
+.\"                        Department of Mathematics
+.\"                        University of Utah
+.\"                        Salt Lake City, UT 84112
+.\"                        USA",
+.\"     telephone       = "+1 801 581 5254",
+.\"     FAX             = "+1 801 581 4148",
+.\"     checksum        = "45983 291 1296 8946",
+.\"     email           = "beebe@math.utah.edu (Internet)",
+.\"     codetable       = "ISO/ASCII",
+.\"     keywords        = "bibliography, sorting, BibTeX",
+.\"     supported       = "yes",
+.\"     docstring       = "This file contains the UNIX manual pages
+.\"                        for the bibsort utility, a program for
+.\"                        sorting BibTeX data base files by their
+.\"                        BibTeX tag names.
+.\"
+.\"                        The checksum field above contains a CRC-16
+.\"                        checksum as the first value, followed by the
+.\"                        equivalent of the standard UNIX wc (word
+.\"                        count) utility output of lines, words, and
+.\"                        characters.  This is produced by Robert
+.\"                        Solovay's checksum utility.",
+.\"  }
+.\" ====================================================================
+.if t .ds Bi B\s-2IB\s+2T\\h'-0.1667m'\\v'0.20v'E\\v'-0.20v'\\h'-0.125m'X
+.if n .ds Bi BibTeX
+.if t .ds Te T\\h'-0.1667m'\\v'0.20v'E\\v'-0.20v'\\h'-0.125m'X
+.if n .ds Te TeX
+.TH BIBSORT 1 "13 October 1992" "Version 0.00"
+.\"======================================================================
+.SH NAME
+bibsort \- sort a BibTeX bibliography file
+.\"======================================================================
+.SH SYNOPSIS
+.B "bibsort [optional sort(1) switches]"
+< infile >outfile
+.\"======================================================================
+.SH DESCRIPTION
+.I bibsort
+filters a \*(Bi\& bibliography, or bibliography
+fragment, on its standard input, printing on
+standard output a sorted bibliography.
+.PP
+Sorting is by \*(Bi\& tag name, or by
+.I @String
+macro name, and letter case is
+ignored in the sorting.
+.PP
+If no command-line switches are provided for
+.IR sort (1),
+then
+.I \-f
+is supplied to cause letter case to be ignored.
+If you also want to remove duplicate entries, you
+could specify the switches
+.IR "\-f \-u" .
+.PP
+The input stream is conceptually divided into four
+parts, any of which may be absent.
+.RS
+.TP \w'1.'u+2n
+1.
+Introductory material such as comments, file
+headers, and edit logs that are ignored by
+\*(Bi\&.  No line in this part begins with an
+at-sign, ``@''.
+.TP
+2.
+Preamble material delineated by ``@Preamble{'' and
+a matching closing ``}'', intended to be processed
+by \*(Te\&.  Normally, there is only one such
+entry in a bibliography file, although \*(Bi\&,
+and
+.IR bibsort ,
+permit more than one.
+.TP
+3.
+Macro definitions of the form
+``@String{.\|.\|.}''.  A single macro definition
+may span multiple lines, and there are usually
+several such definitions.
+.TP
+4.
+Bibliography entries such as ``@Article{.\|.\|.}'',
+``@Book{.\|.\|.}'', ``@Proceedings{.\|.\|.}'', and
+so on.  For
+.IR bibsort ,
+any line that begins with an ``@'' immediately
+followed by letters and digits and an open brace
+is considered to be such an entry.
+.RE
+.PP
+The order of these parts is preserved in the
+output stream.  Part 1 will be unchanged, but
+parts 2--4 will be sorted within themselves.
+.PP
+The sort key of ``@Preamble'' entries is their
+initial line, of ``@String'' entries, the macro
+name, and of all \*(Bi\& entries, the citation tag
+between the open curly brace and the trailing
+comma.
+.PP
+.I bibsort
+will correctly handle UNIX files with LF line
+terminators, as well as IBM PC DOS files with CR
+LF line terminators; the essential requirement is
+that input lines be delineated by LF characters.
+.\"======================================================================
+.SH CAVEATS
+\*(Bi\& has loose syntactical requirements that
+the current simple implementation of
+.I bibsort
+does not support.  In particular, outer
+parentheses may
+.I not
+be used in place of braces following ``@keyword''
+patterns, nor may there be leading or embedded
+whitespace.
+.PP
+If you have such a file, you can use
+.IR bibclean (1)
+to prettyprint it into a form that
+.I bibsort
+can handle successfully.
+.PP
+The user must be aware that sorting a bibliography
+is not without peril, for at least these reasons:
+.RS
+.TP \w'1.'u+2n
+1.
+\*(Bi\& has a
+requirement that entry tags given in
+.IR "crossref" " = " "tag"
+pairs in a bibliography entry
+.I must
+refer to entries defined
+.IR later ,
+rather than earlier, in the bibliography file.
+This regrettable implementation limitation of the
+current (pre-1.0) \*(Bi\& prevents arbitrary
+ordering of entries when
+.I crossref
+values are present.
+.TP
+2.
+If the BibTeX file contains interspersed
+commentary between ``@keyword{.\|.\|.}'' entries,
+this material will be considered part of the
+.I preceding
+entry, and will be sorted with it.  Leading
+commentary is more common, and will be moved
+elsewhere in the file.
+.IP
+This is normally not a problem for the part 1
+material before the ``@Preamble'', since it is kept
+together at the beginning of the output stream.
+.TP
+3.
+Some kinds of bibliography files should be kept in
+a different order than alphabetically by tags.  A
+good example is a bibliography file with the
+contents of a journal, for which publication order
+is likely more suitable.
+.RE
+.PP
+While a much more sophisticated implementation of
+.I bibsort
+could deal with the first point, solving the
+second one requires human intelligence and natural
+language understanding that computers lack.
+.PP
+.I bibsort
+uses ASCII control characters 001 through 007 for
+temporary modifications of the input stream.  If
+any of these are already present in the input,
+they will be altered on output.  This is unlikely
+to be a problem, because those characters have
+neither a printable representation, nor are they
+conventionally used to mark line or page
+boundaries in text files.
+.\"======================================================================
+.SH "PROGRAMMING NOTES"
+Some text editors permit application of an
+arbitrary filter command to a region of text.
+For example, in GNU
+.IR emacs (1),
+the command
+.IR "C-u M-x shell-command-on-region" ,
+or equivalently,
+.IR "C-u M-|" ,
+can be used to run
+.I bibsort
+on a region of the buffer that is devoid of cross
+references and other material that cannot be
+safely sorted.
+.PP
+Some implementations of \*(Bi\& editing support in
+GNU
+.IR emacs (1)
+have a
+.I sort-bibtex-entries
+command that is functionally similar to
+.IR bibsort .
+However, the file size that can be processed
+by
+.IR emacs (1)
+is limited, while
+.I bibsort
+can be used on arbitrarily large files, since it
+acts as a filter, processing a small amount of
+data at a time.  The sort stage needs the entire
+data stream, but fortunately, the UNIX
+.IR sort (1)
+command is clever enough to deal with very large
+inputs.
+.PP
+The current implementation of
+.I bibsort
+follows the UNIX tradition of combining simple
+already-available tools.  A six-stage pipeline of
+.IR egrep (1),
+.IR nawk (1),
+.IR sort (1),
+and
+.IR tr (1)
+accomplishes the job in one pass with about 70
+lines of shell script, 60 lines of which is a
+.IR nawk (1)
+program for insertion of sort keys.
+.I bibsort
+was written and tested on several large
+bibliographies in a couple of hours.  By contrast,
+.IR bibtex (1)
+is more than 11\0000 lines of code and
+documentation, and
+.IR bibclean (1)
+is about 1500 lines long.
+.\"======================================================================
+.SH BUGS
+.I bibsort
+may fail on some UNIX systems if their
+.IR sort (1)
+implementations cannot handle very long lines,
+because for sorting purposes, each complete
+bibliography entry is temporarily folded into a
+single line.  You may be able to overcome this
+problem by adding a
+.BI -z nnnnn
+switch to the
+.IR sort (1)
+command (passed via the command line to
+.IR bibsort )
+to increase the maximum line size to some larger
+value of
+.I nnnnn
+bytes.
+.\"======================================================================
+.SH "SEE ALSO"
+.BR bibclean (1),
+.BR bibtex (1),
+.BR egrep (1),
+.BR emacs (1),
+.BR nawk (1),
+.BR sort (1),
+.BR tr (1).
+.\"======================================================================
+.SH AUTHOR
+Nelson H. F. Beebe, Ph.D.
+.br
+Center for Scientific Computing
+.br
+Department of Mathematics
+.br
+University of Utah
+.br
+Salt Lake City, UT 84112
+.br
+Tel: (801) 581-5254
+.br
+FAX: (801) 581-4148
+.br
+Email: <beebe@math.utah.edu>
+.\"==============================[The End]==============================

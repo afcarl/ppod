@@ -11,7 +11,7 @@ Intel(R) Core(TM)2 Duo CPU P8600 @ 2.40GHz CPU and Lubuntu 13.10.
 
 Language    | Timing (lower is better)
 ----------- | ------------------------
-C           | 1.59
+C           | 8.19
 C (BLAS)    | 6.00
 Cython 2.x  | 8.75
 Cython 3.x  | 8.83
