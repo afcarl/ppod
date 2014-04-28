@@ -1,6 +1,6 @@
 # Recursive Neural Network (RNN) Performance #
 
-Performance tests for a [Recursive Network Network][rnn] (RNN) forward and
+Performance tests for [Recursive Network Network][rnn] (RNN) forward and
 backward passes for a set of language I can consider working in.
 We perform one million forward and backward passes using a single thread of
 execution and calculate the total time consumption.
