@@ -4,7 +4,7 @@ Performance tests for a [Recursive Network Network][rnn] (RNN) forward and
 backward passes for a set of language I can consider working in.
 We perform one million forward and backward passes using a single thread of
 execution and calculate the total time consumption.
-Minor optimations are made on a language-by-language basis.
+Minor optimisations are made on a language-by-language basis.
 This metric gives us some fairly okay ballpark numbers.
 All tests were performed on a laptop with a
 Intel(R) Core(TM)2 Duo CPU P8600 @ 2.40GHz CPU and Lubuntu 13.10.
