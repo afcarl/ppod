@@ -1,4 +1,5 @@
 #!/bin/sh
+# vim:set ft=sh ts=4 sw=4 sts=4 autoindent:
 
 # Fetch all OpenBSD release songs.
 #
@@ -6,6 +7,9 @@
 #
 # Author:   Pontus Stenetorp    <pontus stenetorp se>
 # Version:  2012-05-25
+
+set -o errexit
+set -o nounset
 
 OPENBSD_SONGS=http://www.openbsd.org/songs/
 
