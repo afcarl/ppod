@@ -15,7 +15,7 @@ C           | 8.19
 C (BLAS)    | 6.00
 Cython 2.x  | 8.75
 Cython 3.x  | 8.83
-Julia       | 17.85
+Julia       | 10.61
 Matlab      | 17.04
 Octave      | 26.95
 Python 2.x  | 28.44
