@@ -17,7 +17,7 @@ function forward(W, x, a)
     for row in 1:size(W, 1)
         a[row] = 0
         for col in 1:size(W, 2)
-            a[row] += W[row, col] * x[col]
+            @inbounds a[row] += W[row, col] * x[col]
         end
         a[row] = tanh(a[row])
     end
@@ -30,9 +30,9 @@ end
 function backward(x, a, d, b)
     # b = return (tanh_prime(a) .* d) * x'
     for row in 1:size(b, 1)
-        ad = (1.0 - a[row] ^ 2) * d[row]
+        @inbounds ad = (1.0 - a[row] ^ 2) * d[row]
         for col in 1:size(b, 2)
-            b[row, col] = ad * x[col]
+            @inbounds b[row, col] = ad * x[col]
         end
     end
 end
