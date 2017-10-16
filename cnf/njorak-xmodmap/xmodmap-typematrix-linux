@@ -1,4 +1,4 @@
-! njorak, not-quite-dvorak. Version 1.2
+! njorak, not-quite-dvorak. Version 1.3
 ! By Pontus Stenetorp
 ! Derived from us dvorak, accesses Swedish characters through
 ! altgr or similar combos. Also swaps caps and esc.
@@ -10,6 +10,13 @@
 keycode 43 = d D aring
 keycode 44 = h H adiaeresis
 keycode 45 = t T odiaeresis
+
+! Typographic additions
+keycode 24 = apostrophe quotedbl leftdoublequotemark rightdoublequotemark
+keycode 25 = comma less leftsinglequotemark rightsinglequotemark
+keycode 26 = period greater ellipsis
+keycode 48 = minus underscore endash emdash
+keycode 65 = space space nobreakspace
 
 ! Start button on EZ-reach 2030
 keycode 133 = Mode_switch
